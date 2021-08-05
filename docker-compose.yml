@@ -1,0 +1,45 @@
+version: '3.5'
+
+services:
+  flaskapi:
+    build:
+      context: ./flaskapi
+      dockerfile: ./Dockerfile
+    image: spectool-api
+    container_name:  spectool-api
+    networks:
+      - spectool
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+  reactgui:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    image: spectool-ui
+    container_name: spectool-ui
+    ports:
+      - "5000:80"
+    networks:
+      - spectool
+    restart: unless-stopped
+  proxy:
+    image: traefik:2.5
+    container_name: spectool-proxy
+    volumes:
+      - type: bind
+        source: ./proxy/configuration/traefik.yml
+        target: /etc/traefik/traefik.yml
+      - type: bind
+        source: ./proxy/configuration/dynamic.yml
+        target: /etc/traefik/dynamic.yml
+    networks:
+      - spectool
+    ports:
+      - "80:80"
+      - "8080:8080"
+    restart: unless-stopped
+
+networks:
+  spectool:
+    name: spectool

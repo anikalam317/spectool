@@ -1,0 +1,28 @@
+http:
+  routers:
+    gui:
+      rule: "Host(`192.168.2.2`)"
+      priority: 1
+      service: "gui"
+    flask:
+      rule: "PathPrefix(`/flask`)"
+      priority: 2
+      middlewares:
+        - "flask-stripprefix"
+      service: "flask"
+
+  middlewares:
+    flask-stripprefix:
+      stripPrefixRegex:
+        regex:
+          - "/flask"
+
+  services:
+    gui:
+      loadBalancer:
+        servers:
+          - url: "http://reactgui:80"
+    flask:
+      loadBalancer:
+        servers:
+          - url: "http://flaskapi:8000"
