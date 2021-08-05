@@ -20,7 +20,7 @@ con.commit()
 
 # Create fake spectra
 compounds = [f"compound{n}" for n in "a, b, c, d".split(", ")]
-wavelength = range(1000, 2000)
+wavelength = range(1000, 2000, 10)
 scale = [(s, s + 0.05, s * 0.1, s * 0.1 + 0.005)
          for s in np.arange(.08, .2, .02)]
 nabs = list()

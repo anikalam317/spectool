@@ -27,6 +27,7 @@ def get_spectra():
 def calc_prob():
     composition = request.get_json()
     prob = spectool.calc_prob(composition)
+    prob = prob.tolist()
     return jsonify(prob)
 
 

@@ -1,5 +1,6 @@
 import numpy as np
 import sqlite3
+from pdb import set_trace
 
 
 class SpecTool():
@@ -16,8 +17,8 @@ class SpecTool():
 
     def get_wavelength(self):
         compounds = self.get_compounds()
-        spectra = self.get_spectra(compounds[0])
-        wavelength = spectra[0]
+        spectra = self.get_spectra(compounds[0])[compounds[0]]
+        wavelength = spectra[:, 0]
         return wavelength
 
     def get_spectra(self, name=None):
@@ -56,9 +57,15 @@ class SpecTool():
             {"name_1": "frac_1", "name_2": "frac_2", ...}
         """
         # Anik code here
-        return 0.5
+        spectra = self.get_spectra()
+        wavelength = self.get_wavelength()
+        result = 0
+        for k, v in composition.items():
+            result = result + spectra[k][:, 1] * float(v) / 100
+        result = np.stack([wavelength, result], axis=1)
+        return result
 
 
 if __name__ == "__main__":
     s = SpecTool()
-    s.get_spectra()
+    s.calc_prob({"compounda": 20, "compoundb": 30})
