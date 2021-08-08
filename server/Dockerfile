@@ -10,4 +10,5 @@ RUN yarn\
 
 FROM nginx
 COPY ./server/app.conf /etc/nginx/conf.d/.
-COPY --from=builder /app/build/ /usr/share/nginx/html/
+#COPY --from=builder /app/build/ /usr/share/nginx/html/
+COPY --from=builder /app/build/ /usr/share/nginx/html/spectool/

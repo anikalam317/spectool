@@ -1,12 +1,10 @@
 http:
   routers:
     gui:
-      rule: "Host(`192.168.2.2`)"
-      priority: 1
+      rule: "PathPrefix(`/spectool`)"
       service: "gui"
     flask:
-      rule: "PathPrefix(`/flask`)"
-      priority: 2
+      rule: "PathPrefix(`/spectool/api`)"
       middlewares:
         - "flask-stripprefix"
       service: "flask"
@@ -15,7 +13,7 @@ http:
     flask-stripprefix:
       stripPrefixRegex:
         regex:
-          - "/flask"
+          - "/spectool/api"
 
   services:
     gui:

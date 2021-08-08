@@ -2,6 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { FormControl, InputLabel, Select, MenuItem, TextField, Button } from "@material-ui/core";
 import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, ZAxis, Tooltip, Legend, CartesianGrid } from "recharts";
+import serverInfo from './serverInfo.json'; 
+
+let ip = serverInfo["server"];
 
 interface SpectraProps {
   spectra: {}
@@ -11,7 +14,7 @@ export const Main: React.FC = () => {
   const [spectra, setSpectra] = React.useState({})
 
   React.useEffect(() => {
-    fetch("http://localhost/flask/get_spectra")
+    fetch("http://"+ip+"/spectool/api/get_spectra")
     .then(resp => resp.json())
     .then(resp => formatScatterData(resp))
     .then(resp => setSpectra(resp))
@@ -64,7 +67,7 @@ export const Vis: React.FC<SpectraProps> = ({spectra}) => {
         composition[elem] = amounts[indx];
       }
     })
-    fetch("http://localhost/flask/calc_prob", {
+    fetch("http://"+ip+"/spectool/api/calc_prob", {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',

@@ -9,8 +9,6 @@ services:
     container_name:  spectool-api
     networks:
       - spectool
-    ports:
-      - "8000:8000"
     restart: unless-stopped
   reactgui:
     build:
@@ -18,8 +16,6 @@ services:
       dockerfile: ./server/Dockerfile
     image: spectool-ui
     container_name: spectool-ui
-    ports:
-      - "5000:80"
     networks:
       - spectool
     restart: unless-stopped
