@@ -43,7 +43,7 @@ export const Header: React.FC<Props> = ({toggleDrawer}) => {
             <MenuIcon />
           </IconButton>
         </Button>
-        <Typography className={classes.title} variant="h4">SPECTool</Typography>
+        <Typography className={classes.title} variant="h4">PCMM PAT Probability Calculation</Typography>
         <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
           <Avatar />
         </Button>

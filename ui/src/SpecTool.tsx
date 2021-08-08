@@ -5,7 +5,7 @@ import { SidePanel } from './SidePanel';
 import { Header } from './Header';
 import { Main } from './Main';
 
-export default function DissoCam() {
+export default function SpecTool() {
 
   const [isDrawerOpen, toggleDrawerOpen] = React.useState<boolean>(false);
   const toggleDrawer = () => toggleDrawerOpen(!isDrawerOpen);
